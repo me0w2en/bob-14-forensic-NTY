@@ -130,53 +130,6 @@ def heap_sort(values: List[int]) -> List[int]:
 	"""Return a new list sorted with Heap Sort."""
 	raise NotImplementedError
 
-def tim_sort(values: List[int]) -> List[int]:
-    """Return a new list sorted with Tim Sort (simplified version)."""
-    RUN = 32  # 작은 블록에 대해서는 insertion sort 사용
-
-    def insertion_sort(sublist: List[int]) -> List[int]:
-        lst = sublist[:]
-        for i in range(1, len(lst)):
-            key = lst[i]
-            j = i - 1
-            while j >= 0 and lst[j] > key:
-                lst[j + 1] = lst[j]
-                j -= 1
-            lst[j + 1] = key
-        return lst
-
-    n = len(values)
-    arr = values[:]
-
-    # RUN 크기씩 삽입 정렬
-    for start in range(0, n, RUN):
-        end = min(start + RUN, n)
-        arr[start:end] = insertion_sort(arr[start:end])
-
-    # 병합 단계
-    size = RUN
-    while size < n:
-        for left in range(0, n, 2 * size):
-            mid = min(n, left + size)
-            right = min(n, left + 2 * size)
-            if mid < right:
-                # merge two sorted halves
-                merged = []
-                i, j = left, mid
-                while i < mid and j < right:
-                    if arr[i] <= arr[j]:
-                        merged.append(arr[i])
-                        i += 1
-                    else:
-                        merged.append(arr[j])
-                        j += 1
-                merged.extend(arr[i:mid])
-                merged.extend(arr[j:right])
-                arr[left:right] = merged
-        size *= 2
-
-    return arr
-
 
 SORT_ALGORITHMS: dict[str, Callable[[List[int]], List[int]]] = {
 	"bubble": bubble_sort,
@@ -185,7 +138,6 @@ SORT_ALGORITHMS: dict[str, Callable[[List[int]], List[int]]] = {
 	"merge": merge_sort,
 	"quick": quick_sort,
 	"heap": heap_sort,
-    "tim": tim_sort,
 }
 
 
