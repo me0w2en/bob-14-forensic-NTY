@@ -1,4 +1,5 @@
 import argparse
+import time
 from typing import Callable, List
 
 
@@ -190,19 +191,13 @@ SORT_ALGORITHMS: dict[str, Callable[[List[int]], List[int]]] = {
 
 def parse_args() -> argparse.Namespace:
 	parser = argparse.ArgumentParser(
-		description="Sorting demo: reads integers from data.txt and sorts them with the chosen algorithm.",
+		description="Sorting demo: read integers from a text file and show results and timings for multiple sorting algorithms.",
 	)
 	parser.add_argument(
-		"--file",
-		dest="file_path",
+		"file_path",
+		nargs="?",
 		default="data.txt",
 		help="Input text file path (default: data.txt)",
-	)
-	parser.add_argument(
-		"--algo",
-		choices=sorted(SORT_ALGORITHMS.keys()),
-		default="quick",
-		help="Sorting algorithm to use",
 	)
 	parser.add_argument(
 		"--limit",
@@ -210,22 +205,32 @@ def parse_args() -> argparse.Namespace:
 		default=MAX_ITEMS,
 		help=f"Maximum number of items to read (default: {MAX_ITEMS})",
 	)
-	parser.add_argument(
-		"--print",
-		dest="do_print",
-		action="store_true",
-		help="Print sorted result to stdout",
-	)
 	return parser.parse_args()
 
 
 def main() -> None:
 	args = parse_args()
 	values = read_numbers_from_file(args.file_path, max_items=args.limit)
-	sort_func = SORT_ALGORITHMS[args.algo]
-	sorted_values = sort_func(values)
-	if args.do_print:
-		print(" ".join(str(x) for x in sorted_values))
+
+	ordered_algorithms = [
+		("버블 정렬(Bubble)", "bubble"),
+		("선택 정렬(Selection)", "selection"),
+		("삽입 정렬(Insertion)", "insertion"),
+		("병합 정렬(Merge)", "merge"),
+		("퀵 정렬(Quick)", "quick"),
+		("힙 정렬(Heap)", "heap"),
+	]
+
+	for display_name, key in ordered_algorithms:
+		sort_func = SORT_ALGORITHMS[key]
+		start_time = time.perf_counter()
+		sorted_values = sort_func(values)
+		elapsed = time.perf_counter() - start_time
+
+		print(display_name)
+		print("정렬 결과:", " ".join(str(x) for x in sorted_values))
+		print(f"소요 시간: {elapsed:.6f} 초")
+		print()
 
 
 if __name__ == "__main__":
