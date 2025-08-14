@@ -32,7 +32,16 @@ def bubble_sort(values: List[int]) -> List[int]:
 
 def selection_sort(values: List[int]) -> List[int]:
 	"""Return a new list sorted with Selection Sort."""
-	raise NotImplementedError
+	result: List[int] = list(values)
+	n: int = len(result)
+	for i in range(n - 1):
+		min_index = i
+		for j in range(i + 1, n):
+			if result[j] < result[min_index]:
+				min_index = j
+		if min_index != i:
+			result[i], result[min_index] = result[min_index], result[i]
+	return result
 
 
 def insertion_sort(values: List[int]) -> List[int]:
