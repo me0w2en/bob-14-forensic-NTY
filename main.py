@@ -57,8 +57,22 @@ def selection_sort(values: List[int]) -> List[int]:
 
 
 def insertion_sort(values: List[int]) -> List[int]:
-	"""Return a new list sorted with Insertion Sort."""
-	raise NotImplementedError
+    """Return a new list sorted with Insertion Sort."""
+    result = values.copy()  # 원본 리스트를 변경하지 않기 위해 복사
+    
+    for i in range(1, len(result)):
+        key = result[i]
+        j = i - 1
+        
+        # key보다 큰 요소들을 한 칸씩 뒤로 이동
+        while j >= 0 and result[j] > key:
+            result[j + 1] = result[j]
+            j -= 1
+        
+        # key를 올바른 위치에 삽입
+        result[j + 1] = key
+    
+    return result
 
 
 def merge_sort(values: List[int]) -> List[int]:
