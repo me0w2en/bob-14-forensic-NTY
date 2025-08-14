@@ -41,32 +41,8 @@ def insertion_sort(values: List[int]) -> List[int]:
 
 
 def merge_sort(values: List[int]) -> List[int]:
-    """Return a new list sorted with Merge Sort."""
-    if len(values) <= 1:
-        return values[:]  # 원본 리스트 복사
-
-    mid = len(values) // 2
-    left = merge_sort(values[:mid])
-    right = merge_sort(values[mid:])
-
-    merged: List[int] = []
-    i = j = 0
-
-    # 두 리스트 비교하며 병합
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            merged.append(left[i])
-            i += 1
-        else:
-            merged.append(right[j])
-            j += 1
-
-    # 남은 요소 추가
-    merged.extend(left[i:])
-    merged.extend(right[j:])
-
-    return merged
-
+	"""Return a new list sorted with Merge Sort."""
+	raise NotImplementedError
 
 
 def quick_sort(values: List[int]) -> List[int]:
