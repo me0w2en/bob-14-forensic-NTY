@@ -137,7 +137,7 @@ SORT_ALGORITHMS: dict[str, Callable[[List[int]], List[int]]] = {
 	"insertion": insertion_sort,
 	"merge": merge_sort,
 	"quick": quick_sort,
-	"heap": heap_sort,
+	"tim": tim_sort,
 }
 
 
@@ -170,7 +170,7 @@ def main() -> None:
 		("삽입 정렬(Insertion)", "insertion"),
 		("병합 정렬(Merge)", "merge"),
 		("퀵 정렬(Quick)", "quick"),
-		("힙 정렬(Heap)", "heap"),
+		("팀 정렬(tim)", "tim"),
 	]
 
 	for display_name, key in ordered_algorithms:
