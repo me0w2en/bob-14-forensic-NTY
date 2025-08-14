@@ -70,8 +70,24 @@ def merge_sort(values: List[int]) -> List[int]:
 
 
 def quick_sort(values: List[int]) -> List[int]:
-	"""Return a new list sorted with Quick Sort."""
-	raise NotImplementedError
+    """Return a new list sorted with Quick Sort."""
+    # 원본 리스트를 변경하지 않기 위해 복사본 사용
+    arr = list(values)
+
+    # 재귀 종료 조건: 원소가 1개 이하이면 그대로 반환
+    if len(arr) <= 1:
+        return arr
+
+    # 피벗(Pivot) 선택: 중간값 사용 → 편향된 분할 방지
+    pivot = arr[len(arr) // 2]
+
+    # 피벗 기준으로 왼쪽, 중간(피벗과 동일), 오른쪽 리스트 생성
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+
+    # 왼쪽과 오른쪽은 재귀적으로 정렬 후 합침
+    return quick_sort(left) + middle + quick_sort(right)
 
 
 def heap_sort(values: List[int]) -> List[int]:
