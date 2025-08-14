@@ -27,7 +27,19 @@ def read_numbers_from_file(file_path: str, max_items: int = MAX_ITEMS) -> List[i
 
 def bubble_sort(values: List[int]) -> List[int]:
 	"""Return a new list sorted with Bubble Sort."""
-	raise NotImplementedError
+	result: List[int] = values.copy()
+	n = len(result)
+	if n < 2:
+		return result
+	for end in range(n - 1, 0, -1):
+		swapped = False
+		for i in range(end):
+			if result[i] > result[i + 1]:
+				result[i], result[i + 1] = result[i + 1], result[i]
+				swapped = True
+		if not swapped:
+			break
+	return result
 
 
 def selection_sort(values: List[int]) -> List[int]:
